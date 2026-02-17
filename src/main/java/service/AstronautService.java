@@ -1,6 +1,7 @@
 package service;
 
 import model.Astronaut;
+import model.AstronautStatus;
 import repo.AbstractRepoImpl;
 import repo.AbstractRepository;
 
@@ -31,7 +32,14 @@ public class AstronautService {
     public void showAstronauts() {
         astronautsRepo.findAll()
                 .stream()
-                .forEach(x-> System.out.println("[#"+x.getId()+"] "+x.getName()+" | "+x.getSpacecraft()+" | "+x.getStatus()+" | "+"exp="+x.getExperienceLevel()+"\n"));
+                .forEach(x-> System.out.println("[#"+x.getId()+"] "+x.getName()+" | "+x.getSpacecraft()+" | "+x.getStatus()+" | "+"exp="+x.getExperienceLevel()));
 
+    }
+    public void filterAstronauts(String d){
+        astronautsRepo.findAll()
+                .stream()
+                .filter(x->x.getSpacecraft().equalsIgnoreCase(d))
+                .filter(x->x.getStatus().equals(AstronautStatus.ACTIVE))
+                .forEach(x-> System.out.println("[#"+x.getId()+"] "+x.getName()+" | "+x.getSpacecraft()+" | "+x.getStatus()+" | "+"exp="+x.getExperienceLevel()));
     }
 }
