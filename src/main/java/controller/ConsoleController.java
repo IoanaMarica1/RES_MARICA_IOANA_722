@@ -143,7 +143,8 @@ public class ConsoleController {
 //     * 6)
 //     */
     private void option6() {
-
+        astronautService.pointsAstronaut(supplyService,missionEventService);
+        astronautService.pointsAstronaut1(supplyService,missionEventService);
     }
     //
 //    /**

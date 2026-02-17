@@ -44,4 +44,19 @@ public class MissionEventService {
                 }).limit(5)
                 .forEach(System.out::println);
     }
+    public Integer pointsAstronaut(Integer id){
+        return eventsRepo.findAll()
+                .stream()
+                .filter(x->x.getAstronautId().equals(id))
+                .mapToInt(e->{
+                    return switch(e.getType()){
+                        case EVA -> e.getBasePoints()+2*e.getDay();
+                        case SYSTEM_FAILURE ->  e.getBasePoints()-3-e.getDay();
+                        case SCIENCE ->  e.getBasePoints()+(e.getDay()%4);
+                        case MEDICAL -> e.getBasePoints()-2*(e.getDay()%3);
+                        case COMMUNICATION -> e.getBasePoints()+5;
+                    };
+                })
+                .sum();
+    }
 }

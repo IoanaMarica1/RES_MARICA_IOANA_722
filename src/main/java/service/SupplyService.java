@@ -28,4 +28,10 @@ public class SupplyService {
         long value = supplyRepo.count();
         System.out.println("Supplies Loaded: " + value + "\n");
     }
+    public Integer ammountSupply(Integer id){
+       return  supplyRepo.findAll().stream()
+                .filter(x->x.getAstronautId().equals(id))
+                .mapToInt(Supply::getValue)
+                .sum();
+    }
 }
