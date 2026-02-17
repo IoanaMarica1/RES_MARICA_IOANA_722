@@ -96,7 +96,7 @@ public class AstronautService {
                 })
                 .sorted(Comparator.comparing(Ranking::score).reversed().thenComparing(Ranking::name))
                 .limit(1)
-                .forEach(e->System.out.printf("%s%n",e.spaceCraft()));
+                .forEach(e->System.out.printf("%s%n", e.spaceCraft()));
 
     }
 
