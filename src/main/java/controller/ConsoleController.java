@@ -82,7 +82,6 @@ public class ConsoleController {
 
         // 7
         menu.put(7, new MenuItem("Count Typ", this::option7));
-        menu.put(8, new MenuItem("Filter Event", this::option8));
     }
 
     private void printMenu() {
@@ -151,15 +150,11 @@ public class ConsoleController {
 //     * 7)
 //     */
     private void option7() {
-
-
-
-    }
-    private void option8() {
-
+        missionEventService.eventsReport();
 
 
     }
+
 
     // -------------------- INPUT HELPERS --------------------
 

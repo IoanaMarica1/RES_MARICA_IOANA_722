@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 
@@ -58,5 +59,25 @@ public class MissionEventService {
                     };
                 })
                 .sum();
+    }
+//    Erstellen Sie die Datei mission_report.txt, welche die
+//    Anzahl der MissionEvents pro MissionEventType (basierend
+//                                                           auf events.json) enthält.
+//    Sortierung:
+//            zuerst nach Anzahl absteigend
+//              bei Gleichstand nach Name aufsteigend
+    public void eventsReport(){
+        try(PrintWriter writer = new PrintWriter(new FileWriter("mission_report.txt") )) {
+            eventsRepo.findAll().stream()
+                    .collect(Collectors.groupingBy(MissionEvent::getType,Collectors.counting()))
+                    .entrySet().stream()
+                    .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                    .map(e->e.getKey()+" -> "+e.getValue())
+                    .forEach(writer::println);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }
