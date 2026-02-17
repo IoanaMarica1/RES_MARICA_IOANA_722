@@ -49,4 +49,16 @@ public class AstronautService {
                 .forEach(x-> System.out.println("[#"+x.getId()+"] "+x.getName()+" | "+x.getSpacecraft()+" | "+x.getStatus()+" | "+"exp="+x.getExperienceLevel()));
 
     }
+    public void sortedFile(){
+        try(PrintWriter writer = new PrintWriter(new FileWriter("astronauts_sorted.txt") )) {
+            astronautsRepo.findAll().stream()
+                    .sorted(Comparator.comparing(Astronaut::getExperienceLevel).reversed().thenComparing(Astronaut::getName))
+                    .map(x->"[#"+x.getId()+"] "+x.getName()+" | "+x.getSpacecraft()+" | "+x.getStatus()+" | "+"exp="+x.getExperienceLevel())
+                    .forEach(writer::println);
+
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
