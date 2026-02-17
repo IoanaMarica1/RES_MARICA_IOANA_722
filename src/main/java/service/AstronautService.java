@@ -42,4 +42,11 @@ public class AstronautService {
                 .filter(x->x.getStatus().equals(AstronautStatus.ACTIVE))
                 .forEach(x-> System.out.println("[#"+x.getId()+"] "+x.getName()+" | "+x.getSpacecraft()+" | "+x.getStatus()+" | "+"exp="+x.getExperienceLevel()));
     }
+    public void sortAstronauts(){
+        astronautsRepo.findAll()
+                .stream()
+                .sorted(Comparator.comparing(Astronaut::getExperienceLevel).reversed().thenComparing(Astronaut::getName))
+                .forEach(x-> System.out.println("[#"+x.getId()+"] "+x.getName()+" | "+x.getSpacecraft()+" | "+x.getStatus()+" | "+"exp="+x.getExperienceLevel()));
+
+    }
 }

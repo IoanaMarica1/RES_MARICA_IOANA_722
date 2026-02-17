@@ -69,7 +69,7 @@ public class ConsoleController {
         menu.put(2, new MenuItem("Filter astronauts", this::option2));
 
         // 3
-        menu.put(3, new MenuItem("Sort drivers", this::option3));
+        menu.put(3, new MenuItem("Sort astronauts", this::option3));
 
         // 4
         menu.put(4, new MenuItem("Sort drivers in file", this::option4));
@@ -119,7 +119,7 @@ public class ConsoleController {
      * 3)
      */
     private void option3() {
-
+        astronautService.sortAstronauts();
     }
 
     /**
