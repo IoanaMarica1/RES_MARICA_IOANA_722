@@ -28,4 +28,20 @@ public class MissionEventService {
         long value = eventsRepo.count();
         System.out.println("Events Loaded: " + value + "\n");
     }
+    public void top5MissionEvents() {
+        eventsRepo.findAll().stream()
+                .sorted(Comparator.comparing(MissionEvent::getId))
+                .map(e->{
+                    Integer computingPoints = switch(e.getType()){
+                        case EVA -> e.getBasePoints()+2*e.getDay();
+                        case SYSTEM_FAILURE ->  e.getBasePoints()-3-e.getDay();
+                        case SCIENCE ->  e.getBasePoints()+(e.getDay()%4);
+                        case MEDICAL -> e.getBasePoints()-2*(e.getDay()%3);
+                        case COMMUNICATION -> e.getBasePoints()+5;
+
+                    };
+                    return String.format("Event "+e.getId()+"-> raw="+e.getBasePoints()+" ->computed="+computingPoints);
+                }).limit(5)
+                .forEach(System.out::println);
+    }
 }

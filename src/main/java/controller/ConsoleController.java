@@ -135,7 +135,7 @@ public class ConsoleController {
      * 5)
      */
     private void option5() {
-
+        missionEventService.top5MissionEvents();
 
     }
     //
